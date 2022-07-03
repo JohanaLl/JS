@@ -32,29 +32,58 @@ class LearningPaths {
 
     constructor({
         name,
-        cursos = [],
-        nivelAprendizaje = []
+        courses = []
     }) {
         this.name = name;
-        this.cursos = cursos;
-        this.nivelAprendizaje = nivelAprendizaje;
+        this.courses = courses;
     }
 }
+
+//abstracción
+class Courses {
+
+    constructor({
+        name,
+        clases = []
+    }) {
+        this.name = name;
+        this.clases = clases;
+    }
+}
+
+class Clases {
+
+    constructor({
+        name
+    }) {
+        this.name = name;
+    }
+}
+
+var claseuno = new Clases({
+    name: "clase uno"
+})
+
+var cursosProgBasica = new Courses({
+    name: "Curso Gratis de programación básica",
+    clases: claseuno
+})
+
+var cursoHtlm = new Courses({
+    name: "Curso de HTML",
+    clases: claseuno
+})
 
 
 var escuelaDesarrolloWeb = new LearningPaths({
     name: "Escuela de desarrollo web",
-    cursos: [
-        "POO en JS",
-        "Practica de JS"
-    ], 
-    nivelAprendizaje: [
-        "Basico",
-        "Intermedio",
-        "Avanzado",
-        "Complementario"
+    courses: [
+        cursosProgBasica,
+        cursoHtlm
     ]
 });
+
+console.log(escuelaDesarrolloWeb.courses);
 
 var miguel = new Student({
     email: "miguel@platzi.com",
@@ -68,3 +97,5 @@ var miguel = new Student({
         escuelaDesarrolloWeb
     ]
 });
+
+
