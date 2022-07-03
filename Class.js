@@ -13,17 +13,49 @@ class Student {
         },
         learningPaths = [], 
     }) {
-        this.name = name;
-        this.age = age;
-        this.email = email;
-        this.username = username;
-        this.approvedCourses = approvedCourses; 
-        this.socialMedia = socialMedia;
-        this.learningPaths = learningPaths;
+        this._name = name;
+        this._age = age;
+        this._email = email;
+        this._username = username;
+        this._approvedCourses = approvedCourses; 
+        this._socialMedia = socialMedia;
+        this._learningPaths = learningPaths;
     }
 
     aprobarCurso(curso) {
-        this.cursosAprobados.push(curso);
+        this._approvedCourses.push(curso);
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    get age() {
+        return this._age;
+    }
+
+    get email() {
+        return this._email;
+    }
+
+    get username() {
+        return this._username;
+    }
+
+    get approvedCourses() {
+        return this._approvedCourses;
+    }
+
+    get socialMedia() {
+        return this._socialMedia;
+    }
+
+    get learningPaths() {
+        return this._learningPaths;
+    }
+
+    set username(username) {
+        return this._username = username;
     }
 }
 
@@ -46,8 +78,22 @@ class Courses {
         name,
         clases = []
     }) {
-        this.name = name;
+        //atributo privado
+        this._name = name;
         this.clases = clases;
+    }
+
+    //Métodos get y set para _name
+    get name() {
+        return this._name;
+    }
+
+    set name(nuevoNombre) {
+        if (nuevoNombre === null || nuevoNombre === "") {
+            console.error("Web...no");
+        } else {
+            this._name = nuevoNombre;
+        }
     }
 }
 
@@ -69,6 +115,9 @@ var cursosProgBasica = new Courses({
     clases: claseuno
 })
 
+cursosProgBasica.name;
+cursosProgBasica.name = "Nuevo nombre";
+
 var cursoHtlm = new Courses({
     name: "Curso de HTML",
     clases: claseuno
@@ -83,7 +132,6 @@ var escuelaDesarrolloWeb = new LearningPaths({
     ]
 });
 
-console.log(escuelaDesarrolloWeb.courses);
 
 var miguel = new Student({
     email: "miguel@platzi.com",
