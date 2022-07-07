@@ -1,3 +1,35 @@
+//Ensapsulamiento con archivos EMS6
+function videoPlay(id) {
+    const url =  "http://urlPlatzi.com/"+id;
+    console.log("reproducción  ", url);
+}
+
+function videoStop(id) {
+    const url =  "http://urlPlatzi.com/"+id;
+    console.log("stop  ", url);
+}
+
+//export indica cuales son los bloques de codigo que se pueden acceder desde afuera
+export class PlatziClass {
+
+    constructor({
+        name,
+        videoId
+    }) {
+        this.name = name;
+        this.videoId = videoId;
+    }
+
+    reproducir() {
+        videoPlay(this.videoId)
+    }
+
+    pausar() {
+        videoStop(this.videoId)
+    }
+}
+
+/********************* */
 class Student {
     
     constructor({
