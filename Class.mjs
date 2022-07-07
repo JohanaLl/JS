@@ -91,6 +91,46 @@ class Student {
     }
 }
 
+class FreeStudent extends Student{
+
+    constructor(props){
+        super(props);
+    }
+
+    approvedCourses(newCourse) {
+        if (newCourse.isFree) {
+            this.approvedCourses.push(newCourse)
+        } else {
+            console.warn("solo puede toamar cursos de gratis");
+        }
+    }
+}
+
+class BasiStudent extends Student{
+
+    constructor(props){
+        super(props);
+    }
+
+    approvedCourses(newCourse) {
+        if (newCourse.lang !== "english") {
+            this.approvedCourses.push(newCourse)
+        } else {
+            console.warn("solo puede toamar cursos basic");
+        }
+    }
+}
+class ExpertStudent extends Student{
+
+    constructor(props){
+        super(props);
+    }
+
+    approvedCourses(newCourse) {
+        this.approvedCourses.push(newCourse)
+
+    }
+}
 
 class LearningPaths {
 
@@ -108,11 +148,15 @@ class Courses {
 
     constructor({
         name,
-        clases = []
+        clases = [],
+        isFree = false,
+        lang = 'spanish'
     }) {
         //atributo privado
         this._name = name;
         this.clases = clases;
+        this.isFree = isFree;
+        this.lang = lang;
     }
 
     //Métodos get y set para _name
@@ -144,7 +188,8 @@ var claseuno = new Clases({
 
 var cursosProgBasica = new Courses({
     name: "Curso Gratis de programación básica",
-    clases: claseuno
+    clases: claseuno,
+    isFree: true
 })
 
 cursosProgBasica.name;
@@ -152,7 +197,8 @@ cursosProgBasica.name = "Nuevo nombre";
 
 var cursoHtlm = new Courses({
     name: "Curso de HTML",
-    clases: claseuno
+    clases: claseuno,
+    lang: "english"
 })
 
 
@@ -165,7 +211,7 @@ var escuelaDesarrolloWeb = new LearningPaths({
 });
 
 
-var miguel = new Student({
+var miguel = new BasicStudent({
     email: "miguel@platzi.com",
     age: 28,
     name: "Miguel",
