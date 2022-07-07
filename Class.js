@@ -1,4 +1,26 @@
 //Ensapsulamiento con archivos EMS6
+class Commnet {
+
+    constructor({
+        content,
+        studentName,
+        //opcional
+        studenRole = "estudiante",
+    }) {
+        this.content = content;
+        this.studentName = studentName;
+        this.studenRole = studenRole;
+        this.likes = 0;
+    }
+
+    //metodo que se usa para el polimorfismo
+    publicar() {
+        console.log(this.studentName + "(" + this.studenRole + ")");
+        console.log(this.likes + "likes");
+        console.log(this.content);
+    }
+}
+
 function videoPlay(id) {
     const url =  "http://urlPlatzi.com/"+id;
     console.log("reproducción  ", url);
@@ -10,7 +32,7 @@ function videoStop(id) {
 }
 
 //export indica cuales son los bloques de codigo que se pueden acceder desde afuera
-export class PlatziClass {
+class PlatziClass {
 
     constructor({
         name,
@@ -56,6 +78,15 @@ class Student {
 
     aprobarCurso(curso) {
         this._approvedCourses.push(curso);
+    }
+
+    //metodo que implementa Polimorfismo
+    publicarComentario(comentContent) {
+        const comment = new Commnet({
+            content: comentContent,
+            studentName: this.name,
+        })
+        comment.publicar();
     }
 
     get name() {
@@ -129,6 +160,28 @@ class ExpertStudent extends Student{
     approvedCourses(newCourse) {
         this.approvedCourses.push(newCourse)
 
+    }
+}
+
+class TeacherStudent extends Student{
+
+    constructor(props){
+        super(props);
+    }
+
+    approvedCourses(newCourse) {
+        this.approvedCourses.push(newCourse)
+
+    }
+
+    //Polimorfismo
+    publicarComentario(comentContent) {
+        const comment = new Commnet({
+            content: comentContent,
+            studentName: this.name,
+            studenRole: "profesor"
+        })
+        comment.publicar();
     }
 }
 
@@ -222,6 +275,16 @@ var miguel = new BasicStudent({
     learningPaths: [
         escuelaDesarrolloWeb
     ]
+});
+
+var fredy = new TeacherStudent({
+    email: "fredy@platzi.com",
+    age: 28,
+    name: "Fredy",
+    username: "Fredys",
+    socialMedia: {
+        instagram: "fredy.1"
+    },
 });
 
 

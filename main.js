@@ -1,4 +1,4 @@
-import { PlatziClass } from "./Class.mjs";
+import { PlatziClass } from "./Class.js";
 
 const calse1 = new PlatziClass({
     name: "JS orientada a objetos",
