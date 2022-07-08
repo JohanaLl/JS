@@ -18,11 +18,11 @@ const leidy = {
     }
 }
 
-console.log(Object.keys(leidy));
-console.log(Object.getOwnPropertyNames(leidy));
-console.log(Object.entries(leidy));
+Object.keys(leidy);
+Object.getOwnPropertyNames(leidy);
+Object.entries(leidy);
 
-console.log(Object.getOwnPropertyDescriptors(leidy));
+Object.getOwnPropertyDescriptors(leidy);
 
 /**
  * Este método recibe
@@ -45,4 +45,21 @@ Object.defineProperty(leidy, "navigator", {
 })
 
 Object.seal(leidy);
-Object.freeze(leidy)
+Object.freeze(leidy);
+
+
+/***************************Stringify y parse************************** */
+const obj1 = {
+    a: "a",
+    b: "b",
+    c: {
+        d: "d",
+        e: "e"
+    },
+    editA(){
+        this.a = "AAAA"
+    }
+}
+
+const stringifyComplexObject = JSON.stringify(obj1)
+const obj2 = JSON.parse(stringifyComplexObject)
