@@ -123,7 +123,7 @@ function deepCopy( subject ) {
     return copySubject;
 }
 
-const studentBase = {
+/*const studentBase = {
     name: undefined,
     email: undefined,
     eage: undefined,
@@ -148,4 +148,41 @@ Object.seal(juan);
 Object.freeze(juan);
 
 //Verificar si todas las propiedades del objeto tienen configurable en true
-Object.isSealed(juan)
+Object.isSealed(juan)*/
+
+function requiredParam(param) {
+    //tirar un nuevo error
+    throw new Error(param  + " es obligatorio")
+}
+
+function createStudent({
+    //valida datos obligatorios
+    name = requiredParam("nombre"),
+    age,
+    email = requiredParam("email"),
+    twitter,
+    learningPaths = [],
+    approveCourses = []
+} = {}) {
+    const namePrue = "Johana";
+
+    return {
+        namePrue,
+        age: age,
+        email: email,
+        socialMedia: {
+            twitter: twitter,
+        },
+    }
+}
+
+const joha = createStudent({
+    age: 18,
+    email: "johisllanos@gmal.com",
+    twitter: "joha",
+    name: "Johana"
+})
+
+const llanos = createStudent({
+    name:"llanos"
+})
