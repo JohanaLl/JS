@@ -61,5 +61,64 @@ const obj1 = {
     }
 }
 
-const stringifyComplexObject = JSON.stringify(obj1)
+/*const stringifyComplexObject = JSON.stringify(obj1)
 const obj2 = JSON.parse(stringifyComplexObject)
+
+function recursiva(numero) {
+    console.log(numero);
+
+    if(numero < 5) {
+        return recursiva(numero + 1);
+    } else {
+        return 5
+    }
+}
+
+function recursiva2(array) {
+    if (array.length != 0) {
+        const firstNum = array[0];
+        console.log(firstNum);
+        array.shift();
+        recursiva2(array);
+    }
+}
+*/
+
+/** Recursividad DepCopy */
+function isObject (subject) {
+    return typeof subject == "object";
+}
+
+function isArray (subject) {
+    return Array.isArray(subject);
+}
+
+function deepCopy( subject) {
+    let copySubject;
+
+    const subjectIsArray = isArray(subject);
+    const subjectIsObject = isObject(subject);
+
+
+    if (subjectIsArray) {
+        copySubject = [];
+    } else if (subjectIsObject) {
+        copySubject = {};
+    } else {
+        return subject;
+    }
+
+    for (const key in subject) {
+        const keysObject = isObject(subject[key]);
+
+        if (keysObject) {
+            copySubject[key] = deepCopy(subject[ke])
+        } else  if (subjectIsArray) {
+            copySubject.push(subject[key])
+        } else {
+            copySubject[key] = subject[key]
+        }
+    }
+
+    return copySubject;
+}
