@@ -49,7 +49,7 @@ Object.freeze(leidy);
 
 
 /***************************Stringify y parse************************** */
-const obj1 = {
+/*const obj1 = {
     a: "a",
     b: "b",
     c: {
@@ -61,7 +61,7 @@ const obj1 = {
     }
 }
 
-/*const stringifyComplexObject = JSON.stringify(obj1)
+const stringifyComplexObject = JSON.stringify(obj1)
 const obj2 = JSON.parse(stringifyComplexObject)
 
 function recursiva(numero) {
@@ -93,7 +93,7 @@ function isArray (subject) {
     return Array.isArray(subject);
 }
 
-function deepCopy( subject) {
+function deepCopy( subject ) {
     let copySubject;
 
     const subjectIsArray = isArray(subject);
@@ -112,7 +112,7 @@ function deepCopy( subject) {
         const keysObject = isObject(subject[key]);
 
         if (keysObject) {
-            copySubject[key] = deepCopy(subject[ke])
+            copySubject[key] = deepCopy(subject[key])
         } else  if (subjectIsArray) {
             copySubject.push(subject[key])
         } else {
@@ -122,3 +122,30 @@ function deepCopy( subject) {
 
     return copySubject;
 }
+
+const studentBase = {
+    name: undefined,
+    email: undefined,
+    eage: undefined,
+    approveCourses: undefined,
+    learningPaths: undefined,
+    socialMdia: {
+        twitter: undefined,
+        instagram: undefined
+    },
+};
+
+const juan = deepCopy(studentBase)
+//encapsular las propiedades de los objetos 
+//Evitar que name se borre
+Object.defineProperty(juan, "name", {
+    value: "Juans",
+    configurable: false
+})
+
+//evitar que ninguna de las propiedades se pueda borrar 
+Object.seal(juan);
+Object.freeze(juan);
+
+//Verificar si todas las propiedades del objeto tienen configurable en true
+Object.isSealed(juan)
