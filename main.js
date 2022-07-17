@@ -155,6 +155,8 @@ function requiredParam(param) {
     throw new Error(param  + " es obligatorio")
 }
 
+ 
+
 function createStudent({
     //valida datos obligatorios
     name = requiredParam("nombre"),
@@ -162,27 +164,47 @@ function createStudent({
     email = requiredParam("email"),
     twitter,
     learningPaths = [],
-    approveCourses = []
+    approveCourses = [],
 } = {}) {
-    const namePrue = "Johana";
-
-    return {
-        namePrue,
-        age: age,
-        email: email,
-        socialMedia: {
-            twitter: twitter,
-        },
+    const private = {
+        "_name": name,
     }
+
+    const public = {
+        age,
+        email,
+        twitter,
+        learningPaths,
+        approveCourses,
+        changeName(newName) {
+            private["_name"] = newName
+        },
+        readName() {
+            return private["_name"];
+        },
+    };
+
+    Object.defineProperty(public, "reaName", {
+        writable: false,
+        configurable: false,
+    });
+    
+    Object.defineProperty(public, "changeName", {
+        writable: false,
+        configurable: false,
+    });
+
+    return public;
 }
 
 const joha = createStudent({
     age: 18,
     email: "johisllanos@gmal.com",
     twitter: "joha",
-    name: "Johana"
+    name: "Johana",
 })
 
 const llanos = createStudent({
-    name:"llanos"
+    name:"llanos",
+    email: "llanos@email.com",
 })
