@@ -176,15 +176,28 @@ function createStudent({
         twitter,
         learningPaths,
         approveCourses,
-        changeName(newName) {
+       /* changeName(newName) {
             private["_name"] = newName
         },
         readName() {
             return private["_name"];
+        },*/
+
+        get name() {
+            return private["_name"];
         },
+
+        set name(newName) {
+            if (newName.lengh > 0) {
+                
+            } else {
+                
+            }
+            private["_name"] = newName
+        } ,
     };
 
-    Object.defineProperty(public, "reaName", {
+ /*   Object.defineProperty(public, "reaName", {
         writable: false,
         configurable: false,
     });
@@ -193,7 +206,7 @@ function createStudent({
         writable: false,
         configurable: false,
     });
-
+*/
     return public;
 }
 
