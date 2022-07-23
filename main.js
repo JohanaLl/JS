@@ -156,11 +156,16 @@ function requiredParam(param) {
 }
 
  //Duck typing
-function createLearningPaths({
+ //Prototipo
+function LearningPaths({
     name = requiredParam("name"),
     courses = [],
 }) {
-    const private = {
+
+    this.name = name;
+    this.courses = courses
+
+/*    const private = {
         "_name": name,
         "_courses": courses,
     }
@@ -183,12 +188,11 @@ function createLearningPaths({
             return private["_courses"];
         },
 
-    }
-
-    return public
+    }*/
 }
 
-function createStudent({
+//Prototipo
+function Student({
     //valida datos obligatorios
     name = requiredParam("nombre"),
     age,
@@ -197,7 +201,27 @@ function createStudent({
     learningPaths = [],
     approveCourses = [],
 } = {}) {
-    const private = {
+
+    this.name = name;
+    this.age = age;
+    this.email = email;
+    this.socialMedia = {
+        twitter,
+    };
+    this.approveCourses = approveCourses;
+
+    if (isArray(learningPaths)) {
+        this.learningPaths = [];
+        for (learningPath in learningPaths) {
+            if (learningPaths[learningPath] instanceof LearningPaths) {
+                this.learningPaths.push(learningPaths[learningPath])
+            }
+        }
+    }
+
+
+
+/*    const private = {
         "_name": name,
         "_learningPaths": learningPaths,
     }
@@ -214,7 +238,7 @@ function createStudent({
             return private["_name"];
         },*/
 
-        get name() {
+/*        get name() {
             return private["_name"];
         },
 
@@ -248,7 +272,7 @@ function createStudent({
 
             private["_learningPaths"].push(newLP); 
         },
-    };
+    };*/
 
  /*   Object.defineProperty(public, "reaName", {
         writable: false,
@@ -260,17 +284,22 @@ function createStudent({
         configurable: false,
     });
 */
-    return public;
+   // return public;
 }
 
-const joha = createStudent({
-    age: 18,
-    email: "johisllanos@gmal.com",
-    twitter: "joha",
+const escuelaWeb = new LearningPaths({name:"Escuela de WebDev"})
+const escuelaData = new LearningPaths({name:"Escuela de Data Science"})
+
+const joha = new Student({
     name: "Johana",
+    email: "johisllanos@gmal.com",
+    learningPaths: [
+        escuelaWeb,
+        escuelaData,
+        {
+            name:"Escuela impostora"
+        }
+    ]
 })
 
-const llanos = createStudent({
-    name:"llanos",
-    email: "llanos@email.com",
-})
+
