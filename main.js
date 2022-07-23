@@ -155,7 +155,38 @@ function requiredParam(param) {
     throw new Error(param  + " es obligatorio")
 }
 
- 
+ //Duck typing
+function createLearningPaths({
+    name = requiredParam("name"),
+    courses = [],
+}) {
+    const private = {
+        "_name": name,
+        "_courses": courses,
+    }
+
+    const public = {
+
+        get name() {
+            return private["_name"];
+        },
+
+        set name(newName) {
+            if (newName.lengh > 0) {
+                private["_name"] = newName
+            } else {
+                console.warn("El nombre debe tener al menos un caracter");
+            }
+        },
+
+        get courses() {
+            return private["_courses"];
+        },
+
+    }
+
+    return public
+}
 
 function createStudent({
     //valida datos obligatorios
@@ -168,13 +199,13 @@ function createStudent({
 } = {}) {
     const private = {
         "_name": name,
+        "_learningPaths": learningPaths,
     }
 
     const public = {
         age,
         email,
         twitter,
-        learningPaths,
         approveCourses,
        /* changeName(newName) {
             private["_name"] = newName
@@ -189,12 +220,34 @@ function createStudent({
 
         set name(newName) {
             if (newName.lengh > 0) {
-                
+                private["_name"] = newName 
             } else {
-                
+                console.warn("El nombre debe tener al menos un caracter");
             }
-            private["_name"] = newName
-        } ,
+        },
+
+        get learningPaths() {
+            return private["_learningPaths"];
+        },
+        //Duck typing: validar que realmente se reciba una ruta de aprendizaje
+        set learningPaths(newLP) {
+            if (!newLP.name) {
+                console.warn("La LP debe tener un nombre");
+                return;
+            } 
+            
+            if (!newLP.courses) {
+                console.warn("La LP debe tener cursos");
+                return;
+            }
+
+            if (!isArray(newLP.courses)) {
+                console.warn("La LP no es una lista (*de cursos)");
+                return;
+            }
+
+            private["_learningPaths"].push(newLP); 
+        },
     };
 
  /*   Object.defineProperty(public, "reaName", {
