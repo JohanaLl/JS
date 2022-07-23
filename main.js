@@ -210,13 +210,27 @@ function Student({
     };
     this.approveCourses = approveCourses;
 
-    if (isArray(learningPaths)) {
-        this.learningPaths = [];
-        for (learningPath in learningPaths) {
-            if (learningPaths[learningPath] instanceof LearningPaths) {
-                this.learningPaths.push(learningPaths[learningPath])
+    const private = {
+        "_learningPaths": [],
+    }
+
+    Object.defineProperty(this, "learningPaths", {
+        get() {
+            return private["_learningPaths"]
+        },
+    
+        set(newLP) {
+            if (newLP instanceof LearningPaths) {
+                private["_learningPaths"].push(newLP)
+            } else {
+                console.warn("alguno de los LP no es una instancia de los LearningPaths");
             }
         }
+    })
+
+    for (learningPath in learningPaths) {
+        //Se llama al set en cada iteracion
+        this.learningPaths = learningPaths[learningPath];
     }
 
 
@@ -287,6 +301,8 @@ function Student({
    // return public;
 }
 
+
+
 const escuelaWeb = new LearningPaths({name:"Escuela de WebDev"})
 const escuelaData = new LearningPaths({name:"Escuela de Data Science"})
 
@@ -296,9 +312,6 @@ const joha = new Student({
     learningPaths: [
         escuelaWeb,
         escuelaData,
-        {
-            name:"Escuela impostora"
-        }
     ]
 })
 
