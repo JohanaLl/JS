@@ -84,18 +84,20 @@ function recursiva2(array) {
 }
 */
 
-/** Recursividad DepCopy */
-function isObject (subject) {
+function SuperObject() { }
+
+
+SuperObject.isObject = function(subject) {
     return typeof subject == "object";
 }
 
-function isArray (subject) {
+SuperObject.isArray = function (subject) {
     return Array.isArray(subject);
 }
 
-function deepCopy( subject ) {
+SuperObject.deepCopy = function(subject) {
     let copySubject;
-
+    
     const subjectIsArray = isArray(subject);
     const subjectIsObject = isObject(subject);
 
@@ -157,13 +159,17 @@ function requiredParam(param) {
 
  //Duck typing
  //Prototipo
-function LearningPaths({
-    name = requiredParam("name"),
-    courses = [],
-}) {
+class LearningPaths {
 
-    this.name = name;
-    this.courses = courses
+    constructor(
+        name = requiredParam("name"),
+        courses = [],
+    ) {
+        this._name = name;
+        this._courses = courses
+    }
+
+    
 
 /*    const private = {
         "_name": name,
